@@ -94,6 +94,7 @@ namespace Threadexcersises_1_6
         private static int count;
         private static object countLock = count;
 
+
         static void Main(string[] args)
         {
             ThreadStart Add2Method = new ThreadStart(Add2);
