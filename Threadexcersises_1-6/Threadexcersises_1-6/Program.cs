@@ -167,8 +167,9 @@ namespace Threadexcersises_1_6
                 Monitor.Enter(symbolLock);
                 try
                 {
-                    symbolCount += 60;
-                    Console.WriteLine("************************************************************ " + symbolCount);
+                    string stars = "************************************************************";
+                    symbolCount += stars.Length;
+                    Console.WriteLine(stars + " " + symbolCount);
                 }
                 finally
                 {
@@ -185,8 +186,9 @@ namespace Threadexcersises_1_6
                 Monitor.Enter(symbolLock);
                 try
                 {
-                    symbolCount += 60;
-                    Console.WriteLine("############################################################ " + symbolCount);
+                    string hashes = "############################################################";
+                    symbolCount += hashes.Length;
+                    Console.WriteLine(hashes + " " + symbolCount);
                 }
                 finally
                 {
