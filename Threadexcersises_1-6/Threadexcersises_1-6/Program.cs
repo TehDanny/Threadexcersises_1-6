@@ -39,6 +39,8 @@ namespace Threadexcersises_1_6
             }
         }
         */
+
+        /* opgave 3
         static void Main(string[] args)
         {
             ThreadStart GenerateTemperatureMethod = new ThreadStart(GenerateRandomTemerature);
@@ -85,6 +87,62 @@ namespace Threadexcersises_1_6
         private static void PrintTemperatureThreadStop()
         {
             Console.WriteLine("Thread is terminated.");
+        }
+        */
+
+        // Opgave 4
+        private static int count;
+        private static object countLock = count;
+
+        static void Main(string[] args)
+        {
+            ThreadStart Add2Method = new ThreadStart(Add2);
+            ThreadStart Substract1Method = new ThreadStart(Substract1);
+            Thread add2Thread = new Thread(Add2);
+            Thread substract1Thread = new Thread(Substract1Method);
+            add2Thread.Start();
+            substract1Thread.Start();
+        }
+
+        private static void Add2()
+        {
+            while (true)
+            {
+                Thread.Sleep(1000);
+                Monitor.Enter(countLock);
+                try
+                {
+                    count += 2;
+                    PrintCount();
+                }
+                finally
+                {
+                    Monitor.Exit(countLock);
+                }
+            }
+        }
+
+        private static void Substract1()
+        {
+            while (true)
+            {
+                Thread.Sleep(1000);
+                Monitor.Enter(countLock);
+                try
+                {
+                    count--;
+                    PrintCount();
+                }
+                finally
+                {
+                    Monitor.Exit(countLock);
+                }
+            }
+        }
+
+        private static void PrintCount()
+        {
+            Console.WriteLine("Count is {0}", count);
         }
     }
 }
