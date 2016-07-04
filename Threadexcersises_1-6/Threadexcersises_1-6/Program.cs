@@ -90,7 +90,7 @@ namespace Threadexcersises_1_6
         }
         */
 
-        // Opgave 4
+        /* Opgave 4
         private static int count;
         private static object countLock = count;
 
@@ -144,6 +144,56 @@ namespace Threadexcersises_1_6
         private static void PrintCount()
         {
             Console.WriteLine("Count is {0}", count);
+        }
+        */
+
+        // Opgave 5
+        private static int symbolCount;
+        private static object symbolLock = symbolCount;
+        static void Main(string[] args)
+        {
+            ThreadStart printStarsMethod = new ThreadStart(PrintStars);
+            Thread starThread = new Thread(printStarsMethod);
+            ThreadStart printHashesMethod = new ThreadStart(PrintHashes);
+            Thread hashThread = new Thread(printHashesMethod);
+            starThread.Start();
+            hashThread.Start();
+        }
+
+        private static void PrintStars()
+        {
+            while (true)
+            {
+                Monitor.Enter(symbolLock);
+                try
+                {
+                    symbolCount += 60;
+                    Console.WriteLine("************************************************************ " + symbolCount);
+                }
+                finally
+                {
+                    Monitor.Exit(symbolLock);
+                }
+                Thread.Sleep(1000);
+            }
+        }
+
+        private static void PrintHashes()
+        {
+            while (true)
+            {
+                Monitor.Enter(symbolLock);
+                try
+                {
+                    symbolCount += 60;
+                    Console.WriteLine("############################################################ " + symbolCount);
+                }
+                finally
+                {
+                    Monitor.Exit(symbolLock);
+                }
+                Thread.Sleep(1000);
+            }
         }
     }
 }
